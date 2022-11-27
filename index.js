@@ -25,21 +25,51 @@ async function run() {
     const database = client.db("Like-New-Phone");
     const brandCollection= database.collection("Brand");
     const contractCollection= database.collection("contract");
+    const userCollection= database.collection("user");
+    const productCollection= database.collection("product");
     // create a document to insert
 
 app.get("/brand",async (req, res) => {
   const query ={};
    const cursor = brandCollection.find(query);
    const result = await cursor.toArray();
-console.log(result)
   res.send(result);
 });
+
+
+
 app.post("/contract",async(req,res)=>{
   const contract =req.body;
   const result =await contractCollection.insertOne(contract)
-  console.log(contract)
+ 
   res.send(result)
 })
+
+
+
+app.post("/user",async(req,res)=>{
+  const user =req.body;
+  const result =await userCollection.insertOne(user)
+  res.send(result)
+})
+
+
+
+
+
+
+
+app.post("/product", async (req, res) => {
+  const product = req.body;
+  const result = await productCollection.insertOne(product);
+  res.send(result);
+});
+
+
+
+
+
+
 
   } finally {
    
