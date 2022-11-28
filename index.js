@@ -27,6 +27,7 @@ async function run() {
     const contractCollection= database.collection("contract");
     const userCollection= database.collection("user");
     const productCollection= database.collection("product");
+    const productcategoryCollection = database.collection("productcategory");
     // create a document to insert
 
 app.get("/brand",async (req, res) => {
@@ -74,6 +75,34 @@ app.get("/myproduct", async (req, res) => {
   const result = await cursor.toArray();
   res.send(result);
 });
+
+
+
+
+
+
+
+app.post("/productcategory",async(req,res)=>{
+  const productcategory =req.body;
+  const result =await productcategoryCollection.insertOne(productcategory)
+ 
+  res.send(result)
+})
+
+
+
+
+app.get("/productcategory", async (req, res) => {
+  const query = {};
+  const cursor = productcategoryCollection.find(query);
+  const result = await cursor.toArray();
+  res.send(result);
+});
+
+
+
+
+
 
 
 
