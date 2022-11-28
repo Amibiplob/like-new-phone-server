@@ -104,6 +104,32 @@ app.get("/productcategory", async (req, res) => {
 
 
 
+app.get("/allproduct", async (req, res) => {
+  const query = {};
+  const cursor = productCollection.find(query);
+  const result = await cursor.toArray();
+  res.send(result);
+});
+
+
+app.get("/allproduct/:product", async (req, res) => {
+  const categoryProduct =req.params.product;
+
+   const query = { productCategory: categoryProduct };
+ 
+   const cursor = productCollection.find(query);
+   // print a message if no documents were found
+   if ((await cursor.count()) === 0) {
+     console.log("No documents found!");
+   }
+  const result = await cursor.toArray();
+  res.send(result);
+
+});
+
+
+
+
 
 
   } finally {
