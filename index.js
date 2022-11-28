@@ -68,6 +68,12 @@ app.post("/product", async (req, res) => {
 
 
 
+app.get("/myproduct", async (req, res) => {
+  const query = {};
+  const cursor =productCollection.find(query);
+  const result = await cursor.toArray();
+  res.send(result);
+});
 
 
 
