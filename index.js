@@ -23,19 +23,12 @@ const client = new MongoClient(uri, {
 async function run() {
   try {
     const database = client.db("Like-New-Phone");
-    const brandCollection= database.collection("Brand");
     const contractCollection= database.collection("contract");
     const userCollection= database.collection("user");
     const productCollection= database.collection("product");
     const productcategoryCollection = database.collection("productcategory");
+  const  advertisedItemCollection = database.collection(" AdvertisedItem");
     // create a document to insert
-
-app.get("/brand",async (req, res) => {
-  const query ={};
-   const cursor = brandCollection.find(query);
-   const result = await cursor.toArray();
-  res.send(result);
-});
 
 
 
@@ -70,7 +63,7 @@ app.post("/product", async (req, res) => {
 
 
 app.get("/myproduct", async (req, res) => {
-  const query = {};
+  const query = {email:req.query.email};
   const cursor =productCollection.find(query);
   const result = await cursor.toArray();
   res.send(result);
@@ -135,6 +128,34 @@ app.get("/productdetails/:product", async (req, res) => {
 const result=[product]
   res.send(result);
 });
+
+
+
+
+
+app.post("/AdvertisedItem", async (req, res) => {
+  const AdvertisedItem = req.body;
+  const result = await advertisedItemCollection.insertOne(AdvertisedItem);
+
+  res.send(result);
+});
+
+app.get("/AdvertisedItem", async (req, res) => {
+  const query = {};
+  const cursor = advertisedItemCollection.find(query);
+  const result = await cursor.toArray();
+  res.send(result);
+});
+
+
+
+
+
+
+
+
+
+
 
 
 
