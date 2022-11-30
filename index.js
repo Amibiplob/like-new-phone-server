@@ -171,6 +171,36 @@ app.post("/myorders", async (req, res) => {
 
 
 
+app.get("/myorders", async (req, res) => {
+  const email = req.query.email;
+  const query = { BuyerEmail: email };
+  const cursor = myOrdersCollection.find(query);
+  const result = await cursor.toArray();
+
+  res.send(result);
+});
+
+
+
+app.patch("/myorders", async (req, res) => {
+
+// create a filter for a movie to update
+const filter = {_id:req.query.id };
+// this option instructs the method to create a document if no documents match the filter
+const options = { upsert: true };
+// create a document that sets the plot of the movie
+const updateDoc = {
+  $set: {
+    paymentStatus: "true",
+  },
+};
+const result = await myOrdersCollection.updateOne(filter, updateDoc, options);
+
+res.send(result)
+});
+
+
+
 
 
 
