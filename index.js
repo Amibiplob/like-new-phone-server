@@ -203,6 +203,51 @@ res.send(result)
 
 
 
+app.get("/dbuser", async (req, res) => {
+  const email = req.query.email;
+  const query = { Email: email };
+  const result = await userCollection.findOne(query);
+res.send([result])
+});
+
+
+
+
+app.get("/allseller", async (req, res) => {
+    const query = {userRole:"Seller"};
+    const cursor =userCollection.find(query);
+    const result = await cursor.toArray();
+ res.send(result)
+});
+
+
+
+
+
+
+app.get("/allbuyer", async (req, res) => {
+    const query = {userRole:"Normal"};
+    const cursor =userCollection.find(query);
+    const result = await cursor.toArray();
+ res.send(result)
+});
+
+
+
+
+
+app.delete("/AdvertisedItem", async (req, res) => {
+  const query = { _id:req.query.id };
+    const result = await advertisedItemCollection.deleteOne(query);
+    if (result.deletedCount === 1) {
+    res.send("Successfully deleted one document.");
+    } else {
+   res.send("No documents matched the query. Deleted 0 documents.");
+      }
+});
+
+
+
 
 
 
