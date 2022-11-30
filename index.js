@@ -28,6 +28,7 @@ async function run() {
     const productCollection= database.collection("product");
     const productcategoryCollection = database.collection("productcategory");
   const  advertisedItemCollection = database.collection(" AdvertisedItem");
+  const myOrdersCollection = database.collection("myorders");
     // create a document to insert
 
 
@@ -147,6 +148,23 @@ app.get("/AdvertisedItem", async (req, res) => {
   res.send(result);
 });
 
+
+app.get("/admin/user", async (req, res) => {
+const email =req.query.email
+  const query = {Email:email};
+  const result =await userCollection.findOne(query);
+res.send([result])
+});
+
+
+
+
+app.post("/myorders", async (req, res) => {
+  const MyOrders = req.body;
+  const result = await myOrdersCollection.insertOne(MyOrders);
+
+  res.send(result);
+});
 
 
 
