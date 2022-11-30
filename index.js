@@ -253,7 +253,7 @@ app.delete("/AdvertisedItem", async (req, res) => {
 
 
 app.delete("/product", async (req, res) => {
-  const query = { _id:req.query.id };
+  const query = { _id: ObjectId(req.query.id) };
     const result = await productCollection.deleteOne(query);
     if (result.deletedCount === 1) {
     res.send("Successfully deleted one document.");
