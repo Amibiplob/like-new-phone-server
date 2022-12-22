@@ -266,6 +266,32 @@ app.delete("/product", async (req, res) => {
 
 
 
+app.patch("/alluser", async (req, res) => {
+  // create a filter for a movie to update
+  const filter = { _id: ObjectId(req.query.id) };
+  // this option instructs the method to create a document if no documents match the filter
+  const options = { upsert: true };
+  // create a document that sets the plot of the movie
+  const updateDoc = {
+    $set: {
+      adminVerify: "true",
+    },
+  };
+  const result = await userCollection.updateOne(filter, updateDoc, options);
+
+res.send(result);
+});
+
+
+
+app.delete("/alluser", async (req, res) => {
+  const query = { _id: ObjectId(req.query.id) };
+  const result = await userCollection.deleteOne(query);
+
+res.send(result)
+});
+
+
 
 
 
